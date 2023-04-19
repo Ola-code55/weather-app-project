@@ -53,3 +53,15 @@ li {
 .search-form {
     margin-bottom: 20px;
 }
+ a {
+     display: block;
+     margin: 10px;
+     color: #4f6f95;
+     text-decoration: none;
+     font-size: 16px;
+ }
+
+ a:hover {
+     text-decoration: underline;
+     font-size: 16px;
+ }
