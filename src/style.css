@@ -54,7 +54,7 @@ li {
     margin-bottom: 20px;
 }
  a {
-    text-align: center;
+    display: inline;
      margin: 10px;
      color: #4f6f95;
      text-decoration: none;
