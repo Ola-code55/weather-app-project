@@ -56,9 +56,7 @@ li {
 a{
 color: #0069D9;
 }
-small {
-    text-align: center;
-}
+
 .container {
     display: flex;
     flex-direction: column;
