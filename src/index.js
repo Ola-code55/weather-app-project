@@ -23,6 +23,7 @@ function formatDate(date) {
   return `${day} ${hours}:${minutes}`;
 }
 function displayWeatherCondition(response) {
+   console.log(response.data);
   document.querySelector("#city").innerHTML = response.data.name;
   document.querySelector("#temperature").innerHTML = Math.round(
     response.data.main.temp
