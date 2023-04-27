@@ -46,6 +46,7 @@ function displayTemperature(response) {
 
 function searchCity(city) {
   let apiKey = "9059385bd64583ed2218072dfccd53f7";
+  let city = ("Lagos");
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
 }
