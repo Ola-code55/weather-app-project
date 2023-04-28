@@ -53,8 +53,9 @@ function searchCity(city) {
 function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
-  searchCity(city);
+  searchCity(cityInputElement.value);
 }
+
 
 function searchLocation(position) {
   let apiKey = "9059385bd64583ed2218072dfccd53f7";
@@ -68,11 +69,9 @@ function getCurrentLocation(event) {
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
 
-
-
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
+searchCity("Lagos");
 
 let currentLocationButton = document.querySelector("#current-location-button");
 currentLocationButton.addEventListener("click", getCurrentLocation);
-searchCity= ("Lagos");
