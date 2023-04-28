@@ -51,14 +51,14 @@ text-transform: capitalize;
     margin-right: 10px;
 }
 
-.temperature {
+.weather-temperature strong {
     color: rgb(33, 33, 33);
     font-size: 64px;
     font-weight: 400;
     line-height: 1;
 }
 
-.units {
+.weather-temperature .units {
     position: relative;
     top: -34px;
 }
@@ -70,5 +70,10 @@ a{
 color: #0069D9;
 }
 
-
- 
+.weather-temperature .active {
+color: rgb(33, 33, 33);
+cursor: default;
+}
+ .weather-temperature .active:hover {
+     text-decoration: none;
+ }

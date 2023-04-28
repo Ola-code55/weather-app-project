@@ -48,7 +48,7 @@
           </div>
           <div class="row">
             <div class="col-6">
-              <div class="clearfix">
+              <div class="clearfix weather-temperature">
                 <img
                   src="https://ssl.gstatic.com/onebox/weather/64/rain_light.png"
                   alt="Clear"
@@ -56,8 +56,14 @@
                   class="float-left"
                 />
                 <div class="float-left">
-                  <span class="temperature" id="temperature"></span
-                  ><span class="units">°C |<a href="#">℉</a></span>
+                  <strong id="temperature"></strong>
+                  ><span class="units"
+                    ><a href="#" id="celsius-link" class="active">°C</a> |<a
+                      href="#"
+                      id="fahrenheit-link"
+                      >℉</a
+                    ></span
+                  >
                 </div>
               </div>
             </div>
