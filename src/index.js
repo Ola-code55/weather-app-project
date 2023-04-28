@@ -1,76 +1,88 @@
-// Store API key in a separate file or environment variable
-const apiKey = process.env.API_KEY;
-
-
-const form = document.querySelector("#search-form");
-const cityInputElement = document.querySelector("#city-input");
-const celsiusLink = document.querySelector("#celsius-link");
-const fahrenheitLink = document.querySelector("#fahrenheit-link");
-const cityElement = document.querySelector("#city");
-const iconElement = document.querySelector("#icon");
-const temperatureElement = document.querySelector("#temperature");
-const humidityElement = document.querySelector("#humidity");
-const windElement = document.querySelector("#wind");
-const descriptionElement = document.querySelector("#description");
-const dateElement = document.querySelector("#date");
-
-
 function formatDate(timestamp) {
-  const date = new Date(timestamp);
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const day = days[date.getDay()];
+  let date = new Date(timestamp)
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  let dayIndex = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  let day = days[dayIndex];
   return `${day} ${hours}:${minutes}`;
 }
+  
+function displayTemperature(response) {
+    let cityElement = document.querySelector("#city");
+    let iconElement = document.querySelector("#icon");
+    let temperatureElement = document.querySelector("#temperature");
+    let humidityElement = document.querySelector("#humidity");
+    let windElement = document.querySelector("#wind");
+    let descriptionElement = document.querySelector("#description");
+    let dateElement = document.querySelector("#date");
 
-async function search(city) {
-  try {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    const response = await axios.get(apiUrl);
-    const { name, weather, main, wind, dt } = response.data;
-    cityElement.innerHTML = name;
-    iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${weather[0].icon}.png`);
-    iconElement.setAttribute("alt", weather[0].description);
-    temperatureElement.innerHTML = Math.round(main.temp);
-    humidityElement.innerHTML = main.humidity;
-    windElement.innerHTML = Math.round(wind.speed);
-    descriptionElement.innerHTML = weather[0].description;
-    dateElement.innerHTML = formatDate(dt * 1000);
-    // Store the temperature in Celsius for use in the conversion functions
-    celsiusTemperature = main.temp;
-  } catch (error) {
-   
-    alert("An error occurred while fetching weather data. Please try again later.");
-  }
+    cityElement.innerHTML = response.data.name;
+    iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`); 
+    iconElement.setAttribute("alt" , response.data.weather[0].description);
+    temperatureElement.innerHTML = Math.round(response.data.main.temp);
+    humidityElement.innerHTML = response.data.main.humidity;
+    windElement.innerHTML = Math.round(response.data.wind.speed);
+    descriptionElement.innerHTML = response.data.weather[0].description;
+    dateElement.innerHTML = formatDate(response.data.dt * 1000);
+
 }
+
+function search(city) {
+  let apiKey = "9059385bd64583ed2218072dfccd53f7";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+
 
 function handleSubmit(event) {
   event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
   search(cityInputElement.value);
 }
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
-  const fahrenheitTemperature = (celsiusTemperature * 9/5) + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  let fahrenheitTemperature = (celsiusTemperature * 9 /5) + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature); 
 }
+
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
+let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
-
-
 let celsiusTemperature = null;
-search("Lagos");
 
-
+let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click" , displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click" , displayCelsiusTemperature);
+
+search("Lagos");
