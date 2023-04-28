@@ -9,7 +9,6 @@ function formatDate(timestamp) {
     minutes = `0${minutes}`;
   }
 
-  let dayIndex = date.getDay();
   let days = [
     "Sunday",
     "Monday",
@@ -19,27 +18,28 @@ function formatDate(timestamp) {
     "Friday",
     "Saturday"
   ];
-  let day = days[dayIndex];
+  let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
   
 function displayTemperature(response) {
-    let cityElement = document.querySelector("#city");
-    let iconElement = document.querySelector("#icon");
     let temperatureElement = document.querySelector("#temperature");
-    let humidityElement = document.querySelector("#humidity");
-    let windElement = document.querySelector("#wind");
+    let cityElement = document.querySelector("#city");
     let descriptionElement = document.querySelector("#description");
+    let humidityElement = document.querySelector("#humidity");    let windElement = document.querySelector("#wind");
     let dateElement = document.querySelector("#date");
+    let iconElement = document.querySelector("#icon");
 
-    cityElement.innerHTML = response.data.name;
-    iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`); 
-    iconElement.setAttribute("alt" , response.data.weather[0].description);
-    temperatureElement.innerHTML = Math.round(response.data.main.temp);
-    humidityElement.innerHTML = response.data.main.humidity;
+     celsiusTemperature = response.data.main.temp;
+
+    temperatureElement.innerHTML = Math.round(celsiusTemperature);
+     cityElement.innerHTML = response.data.name;
+      descriptionElement.innerHTML = response.data.weather[0].description;
+     humidityElement.innerHTML = response.data.main.humidity;
     windElement.innerHTML = Math.round(response.data.wind.speed);
-    descriptionElement.innerHTML = response.data.weather[0].description;
     dateElement.innerHTML = formatDate(response.data.dt * 1000);
+    iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`); 
+    iconElement.setAttribute("alt" , response.data.weather[0].description); 
 
 }
 
