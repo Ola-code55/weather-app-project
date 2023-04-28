@@ -23,7 +23,6 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
   
-
 function displayTemperature(response) {
 console.log(response.data);
     let cityElement = document.querySelector("#city");
@@ -44,36 +43,22 @@ console.log(response.data);
 
 }
 
-
-function searchCity(city) {
+function search(city) {
   let apiKey = "9059385bd64583ed2218072dfccd53f7";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
 }
 
+
 function handleSubmit(event) {
   event.preventDefault();
-  let city = document.querySelector("#city-input").value;
-  searchCity(city);
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
 }
+search("Lagos");
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
 
 
-function searchLocation(position) {
-  let apiKey = "9059385bd64583ed2218072dfccd53f7";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
 
-  axios.get(apiUrl).then(displayTemperature);
-}
-
-function getCurrentLocation(event) {
-  event.preventDefault();
-  navigator.geolocation.getCurrentPosition(searchLocation);
-}
-
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", handleSubmit);
-
-let currentLocationButton = document.querySelector("#current-location-button");
-currentLocationButton.addEventListener("click", getCurrentLocation);
-
-searchCity("Lagos");
