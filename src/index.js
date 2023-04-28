@@ -1,5 +1,5 @@
-function formatDate() {
-  let date = new Date();
+function formatDate(timestamp) {
+  let date = new Date(timestamp)
   let hours = date.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
@@ -20,10 +20,8 @@ function formatDate() {
     "Saturday"
   ];
   let day = days[dayIndex];
-
-  return `${day} ${hours}:${minutes}`;
 }
-dateElement.innerHTML = formatDate();
+  return `${day} ${hours}:${minutes}`;
 
 function displayTemperature(response) {
 
