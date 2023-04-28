@@ -45,10 +45,10 @@ text-transform: capitalize;
     margin-bottom: 20px;
 }
 
-.weather-icon {
+.weather-temperature img {
     height: 64px;
     width: 64px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .weather-temperature strong {
