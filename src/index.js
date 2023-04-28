@@ -20,8 +20,9 @@ function formatDate(timestamp) {
     "Saturday"
   ];
   let day = days[dayIndex];
-}
   return `${day} ${hours}:${minutes}`;
+}
+  
 
 function displayTemperature(response) {
 
